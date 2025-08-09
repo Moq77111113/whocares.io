@@ -1,0 +1,103 @@
+@import 'tailwindcss' source(none);
+@source "./internal/ui/**/*.{go}";
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800;900&display=swap');
+
+@layer base {
+  :root {
+    --bg: oklch(99% 0.003 95);
+    --text: oklch(18% 0.025 250);
+    --text-muted: oklch(58% 0.015 250);
+    --accent: oklch(72% 0.18 340);
+  }
+
+  .dark {
+    --bg: oklch(10% 0.008 250);
+    --text: oklch(94% 0.005 110);
+    --text-muted: oklch(66% 0.01 110);
+    --accent: oklch(78% 0.14 330);
+  }
+
+  @theme inline {
+    --color-background: var(--bg);
+    --color-text: var(--text);
+    --color-text-muted: var(--text-muted);
+    --color-accent: var(--accent);
+  }
+
+  body {
+    font-family: 'JetBrains Mono', monospace;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    background-color: var(--bg);
+    color: var(--text);
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    letter-spacing: -0.025em;
+  }
+}
+
+@layer components {
+  .counter-display {
+    font-size: clamp(2.5rem, 12vw, 14rem);
+    line-height: 0.85;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    font-family: 'JetBrains Mono', monospace;
+    font-variant-numeric: tabular-nums;
+    color: var(--text);
+    word-break: break-all;
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+
+  .minimal-transition {
+    transition: all 0.5s ease-out;
+  }
+}
+
+@layer utilities {
+  .text-responsive-huge {
+    font-size: clamp(4rem, 15vw, 14rem);
+    line-height: 0.85;
+  }
+
+  .counter-animate {
+    animation: countUp 0.5s ease-out;
+  }
+
+  @keyframes countUp {
+    from {
+      opacity: 0.5;
+      transform: scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .counter-display {
+    font-size: clamp(2rem, 10vw, 4rem);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+  }
+
+  body {
+    padding: 0 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .counter-display {
+    font-size: clamp(1.8rem, 8vw, 3rem);
+    line-height: 0.95;
+  }
+}
